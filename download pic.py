@@ -15,6 +15,6 @@ def fetch():
     
 if __name__ == '__main__':
     responce = fetch()
-    with open("F://cs inf/wiki_logo.jpg", "wb") as fp:
+    with open("wiki_logo.jpg", "wb") as fp:
         fp.write(responce.content)
     
