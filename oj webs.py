@@ -22,8 +22,10 @@ def parse(resp):
     oj_url = []
     oj_img = []
     for oj in content.find_all('a'):
-       oj_url.append(oj['href'])
-       oj_img.append(oj.find('img'))
+        #there are two irrelevant links in content
+        if oj.find('img'):    
+            oj_url.append(oj['href'])
+            oj_img.append(oj.find('img')['src'])
     
     return oj_img, oj_url
 
@@ -37,11 +39,11 @@ def main():
     
     cnt = 0
     for i in img:
-        web = URL + i['src']
-        responce = fetch(web)
+        link = URL + i
+        responce = fetch(link)
         with open(u'{name}.jpg'.format(name = cnt), 'wb') as fp:
             fp.write(responce.content)
             cnt += 1
     
 if __name__ == '__main__':
-    main()    
+    main()     
