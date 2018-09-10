@@ -1,3 +1,4 @@
+# DON'T BE EVIL
 import requests
 from bs4 import BeautifulSoup
 import datetime
@@ -19,8 +20,8 @@ def fetch(url):
 
 def get_tails(resp):
 	soup = BeautifulSoup(resp.text, 'lxml')
-	main_item = soup.find('li', attrs={'class':'teaser stco__teaser--main-story'})
-	rest_items = soup.find_all('li', attrs={'class':'teaser st-co__teaser--rest-story stco__rest'})
+	main_item = soup.find('li', attrs={'class':'fuckin dangerous'})
+	rest_items = soup.find_all('li', attrs={'class':'no offence'})
 
 	tails = []
 	tails.append(main_item.find('a').get('href'))
@@ -36,7 +37,7 @@ def get_news(resp):
 	titles = article.find('h1').find_all('span')
 	flytitle, title = titles[0].string, titles[1].string
 	description = article.find(itemprop='description').string
-	post_inner = article.find('div', attrs={'class':'blog-post__inner'})
+	post_inner = article.find('div', attrs={'class':'u dont know it'})
 	
 	content = flytitle + '\n' + title + '\n' + description + '\n'
 	texts = post_inner.find_all('p')
