@@ -1,14 +1,15 @@
-# DON'T BE EVIL
+# Bypasses sth
 import requests
 from bs4 import BeautifulSoup
 import datetime
 from os import mkdir
 
 
-url = 'SOME BAD WEBSITE'
+url = 'URL'
 now = datetime.datetime.now()
 date = str(now.year) + '_' + str(now.month) + '_' + str(now.day)
 path = './' + date
+illegal_chars = '/:|"<>\?'
 
 
 def fetch(url):
@@ -47,21 +48,13 @@ def get_news(resp):
 	return content, title
 
 
-def regularize_fn(fn):
-	fn = fn.replace('/', ' or ')
-	fn = fn.replace(':', '-')
-	fn = fn.replace('|', '-')
-	fn = fn.replace('\"', '\'')
-	fn = fn.replace('<', '')
-	fn = fn.replace('>', '')
-	fn = fn.replace('\\', '')
-	fn = fn.replace('?', '')
-
-	return fn
+def regularize_filename(fn):
+	# avoid windows invalid filenames
+	return ''.join([c if c not in illegal_chars else '_' for c in fn])
 
 
 def write_data(data, title):
-	fn = path + '/' + regularize_fn(title) + '.txt'
+	fn = path + '/' + regularize_filename(title) + '.txt'
 	with open(fn, 'w', errors='ignore') as f:
 		f.write(data)
 
